@@ -3,6 +3,7 @@ import java.rmi.registry.Registry;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,18 +15,36 @@ public class ProvinceServeur {
     try {
     	//Initialisation base de donnée 
 
-//    	Class.forName("com.mysql.jdbc.driver");
-//    	String url = "jdbc:mysql://localhost:3306/clientserveur";
-//    	String username = "root";
-//    	String password = "";
-//
-//    	System.out.println("Connecting database...");
-//
-//    	try (Connection connection = DriverManager.getConnection(url, username, password)) {
-//    	    System.out.println("Database connected!");
-//    	} catch (SQLException e) {
-//    	    throw new IllegalStateException("Cannot connect the database!", e);
-//    	}
+    	String url = "jdbc:mysql://localhost/clientserveur";
+    	String username = "root";
+    	String password = "";
+    	Statement st = null;
+    	Connection connection = null;
+    	System.out.println("Connecting database...");
+
+    	try {
+    		//Connexion à la base de donnée
+    		Class.forName("com.mysql.jdbc.Driver");
+    		connection = DriverManager.getConnection(url, username, password);
+    	    System.out.println("Database connected!");
+    	    
+    	    //Création d'une demande
+    	    st = connection.createStatement();
+    	    String sql = "INSERT INTO `client` (`nom`) VALUES ('personne')";
+    	    st.execute(sql);
+    	} catch (SQLException e) {
+    	    e.printStackTrace();
+    	} catch (ClassNotFoundException e){
+    		e.printStackTrace();
+    	} finally{
+    		//fin de la connection
+    		try{
+    			connection.close();
+    			st.close();
+    		}catch(SQLException e){
+    			e.printStackTrace();
+    		}
+    	}
     
     	//Create and get reference to rmi registry
     	Registry registry = LocateRegistry.createRegistry(1099);
