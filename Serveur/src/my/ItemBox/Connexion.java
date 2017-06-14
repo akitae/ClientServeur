@@ -1,7 +1,12 @@
+package my.ItemBox;
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class Connexion {
@@ -46,8 +51,35 @@ public class Connexion {
     		}
     	}
 	}
-
-
 	
-	
+	public ArrayList<String> requeteExecuteSql(String sql){
+		ResultSet rs = null;
+		//creation et envoie de la requete
+		ArrayList<String> nom = new ArrayList<>();
+		try{
+			st = connection.createStatement();
+		    rs = st.executeQuery(sql);
+		    ResultSetMetaData rsmd = rs.getMetaData(); 
+		    int columnCount = rsmd.getColumnCount();
+
+		    while(rs.next()) {
+	    	   int i = 1;
+	    	   while(i <= columnCount) {
+	    		   nom.add(rs.getString(i++));
+	    	   }
+		    }
+		    
+		} catch (SQLException e) {
+    	    e.printStackTrace();
+    	} finally{
+//    		fin de la connection
+    		try{
+    			connection.close();
+    			st.close();
+    		}catch(SQLException e){
+    			e.printStackTrace();
+    		}
+    	}
+		return nom;
+	}	
 }
