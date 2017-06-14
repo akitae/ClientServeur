@@ -16,4 +16,5 @@ public interface IRemoteStock extends Remote{
 	public void AjoutClient(String nom, String adresse) throws RemoteException;
 	public void SupprimerClient(String nom, String adresse) throws RemoteException;
 	public void ModifierClient(String nom, String adresse, String newNom, String newAdresse) throws RemoteException;
+	public void ajoutCommande(String nomClient, String adresse, float prix, String modePaiement) throws RemoteException;
 }

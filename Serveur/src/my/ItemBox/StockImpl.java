@@ -66,7 +66,7 @@ public class StockImpl extends UnicastRemoteObject implements IRemoteStock{
 		if(r!=null){
 			return Integer.parseInt(r.get(0));
 		}
-		return 0;
+		return -1;
 	}
 	
 	public ArrayList<String> getClients() throws RemoteException{
@@ -99,5 +99,15 @@ public class StockImpl extends UnicastRemoteObject implements IRemoteStock{
 	public void ModifierClient(String nom, String adresse, String newNom, String newAdresse) throws RemoteException{
 		Connexion c = new Connexion();	
 		c.requeteSql("UPDATE client SET nom ='" + newNom + "', adresse='"+newAdresse+"'WHERE nom ='" + nom +"' AND adresse='"+adresse+"'");
+	}
+	
+	public void ajoutCommande(String nomClient, String adresse, float prix, String modePaiement) throws RemoteException{
+		Connexion c = new Connexion();
+		ArrayList<String> rs = c.requeteExecuteSql("SELECT id FROM client WHERE nom='"+nomClient+"' AND adresse='"+adresse+"'");
+		if(rs != null){
+			int idClient = Integer.parseInt(rs.get(0));
+			c = new Connexion();
+			c.requeteSql("INSERT INTO commande(id,id_client,prixTotal,modePaiement) VALUES (null,'"+idClient+"','"+prix+"','"+modePaiement+"')");
+		}
 	}
 }

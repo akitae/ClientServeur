@@ -28,11 +28,11 @@ public class ProvinceClient {
 //         System.out.println(iStock.addStock("F02", 3));
 //         System.out.println(iStock.removeStock("F02", 1));
 //         System.out.println(iStock.getClients());
-         System.out.println(iStock.getCommandes("Dupont Jean", "23 rue loin"));
-         iStock.AjoutClient("Jazer Truc", "26 rue perdu");
-         iStock.SupprimerClient("Dazed Paul", "26 rue ici");
-         iStock.ModifierClient("Jazer Truc", "26 rue perdu","Machin truc","2 rue loin");
-
+//         System.out.println(iStock.getCommandes("Dupont Jean", "23 rue loin"));
+//         iStock.AjoutClient("Jazer Truc", "26 rue perdu");
+//         iStock.SupprimerClient("Dazed Paul", "26 rue ici");
+//         iStock.ModifierClient("Jazer Truc", "26 rue perdu","Machin truc","2 rue loin");
+//    	 iStock.ajoutCommande("Dupont Jean", "23 rue loin", (float)244.32, "CB");
  
     } catch (Exception e) {
       System.out.println(e);
