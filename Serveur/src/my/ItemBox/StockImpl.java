@@ -7,21 +7,9 @@ import java.util.ArrayList;
 
 
 public class StockImpl extends UnicastRemoteObject implements IRemoteStock{
-	Stock stock;
-
-	//enregistre un stock pour l'envoyer
-	protected StockImpl(Stock s) throws RemoteException {
-		super();
-		stock = s;
-	}
 	
 	public StockImpl()throws RemoteException {
 		super();
-	}
-	
-	//recupere le stock
-	public Stock newStock() throws RemoteException {
-		return this.stock;
 	}
 	
 	//Ajoute un nouvel objet dans le stock
@@ -37,8 +25,13 @@ public class StockImpl extends UnicastRemoteObject implements IRemoteStock{
 		Connexion c = new Connexion();
 		int nombre= this.getNbrProduit(reference);
 		nombre = nombre - qte;
-		c.requeteSql("UPDATE stock SET nombre ='" + nombre + "'WHERE reference ='" + reference +"'");
-		return nombre;
+		System.out.println("nbr = "+nombre);
+		if(nombre>0){
+			c.requeteSql("UPDATE stock SET nombre ='" + nombre + "'WHERE reference ='" + reference +"'");
+			return nombre;
+		}
+		
+		return -1;
 	}
 	
 	public ArrayList<String> getFamille() throws RemoteException{
@@ -57,7 +50,7 @@ public class StockImpl extends UnicastRemoteObject implements IRemoteStock{
 		if(r!=null){
 			return Float.parseFloat(r.get(0));
 		}
-		return 0;
+		return -1;
 	}
 	
 	public int getNbrProduit(String reference) throws RemoteException{

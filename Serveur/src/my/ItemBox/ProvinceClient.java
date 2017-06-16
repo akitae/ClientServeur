@@ -20,7 +20,7 @@ public class ProvinceClient {
     	 //Ajout d'un stock
        //  iStock.addStock("cc");
          
-    	 //iStock.getFamille(); Lister toute les familles
+    	 System.out.println(iStock.getFamille());// Lister toute les familles
     	 //iStock.getStock("fam") Lister tous les stocks qui appartienne a la famille
 //         System.out.println(iStock.getStock("ordinateur"));
 //         System.out.println(iStock.getPrixProduit("F02"));
